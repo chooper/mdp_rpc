@@ -16,7 +16,11 @@ In terminal one, start the stock pyzmq-mdp broker:
 
     $ python pyzmq-mdp/mdp/mybroker.py 
 
-In terminal two, start the worker (or many of them!):
+In terminal two, start the worker (or many of them!). The example worker 
+registers a service named 'ping' that exposes two methods:
+
+* `ping(seq_num, timestamp)` -- Echoes the sequence number and timestamp given
+* `time()` -- Returns `time.time()`
 
     $ python examples/worker.py 
 
@@ -34,7 +38,9 @@ the instructions:
     >>> c.ping.ping(0, c.ping.time()) # yeah I know that doesn't make sense :-)
     ('PONG', 0, 1353111149.779033)
 
-There is really poor exception report, but at least the worker doesn't crash:
+The general usage of this implementation is to use
+`client.service_name.method(args, kwargs)`. There is really poor exception
+support, but at least the worker doesn't crash:
 
     >>> c.ping.ping('too', 'many', 'args')
     '<type \'exceptions.TypeError\'>\n  File "/home/chooper/projects/pyzmq-mdp-rpc/mdp_rpc/worker.py", line 27, in on_request\n    rep = (\'OK\', func(*args, **kwargs))\n\nping() takes exactly 3 arguments (1 given)'
