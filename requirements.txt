@@ -1,3 +1,3 @@
 pyzmq
-./pyzmq-mdp
+https://github.com/guidog/pyzmq-mdp/archive/master.zip
 msgpack-python
