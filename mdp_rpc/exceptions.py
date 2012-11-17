@@ -1,0 +1,2 @@
+
+class NoSuchMethod(Exception):  pass
