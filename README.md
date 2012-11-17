@@ -22,6 +22,7 @@ registers a service named 'ping' that exposes two methods:
 * `ping(seq_num, timestamp)` -- Echoes the sequence number and timestamp given
 * `time()` -- Returns `time.time()`
 
+
     $ python examples/worker.py 
 
 In terminal three, open up a python shell in the examples directory and follow
