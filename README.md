@@ -16,14 +16,14 @@ In terminal one, start the stock pyzmq-mdp broker:
 
     $ python pyzmq-mdp/mdp/mybroker.py 
 
-In terminal two, start the worker (or many of them!). The example worker 
-registers a service named 'ping' that exposes two methods:
+In terminal two, start the worker (or many of them!).
+
+    $ python examples/worker.py 
+
+The example worker registers a service named 'ping' that exposes two methods:
 
 * `ping(seq_num, timestamp)` -- Echoes the sequence number and timestamp given
 * `time()` -- Returns `time.time()`
-
-
-    $ python examples/worker.py 
 
 In terminal three, open up a python shell in the examples directory and follow
 the instructions:
