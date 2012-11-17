@@ -5,6 +5,10 @@ from mdp.client import mdp_request, MDPClient
 import msgpack
 
 class ServiceProxy(object):
+    """Part of the client component for the RPC implementation. Does all the heavy
+    lifting on the client end. Encodes and sends requests, parses replies.
+    """
+
     _service = None
     _client = None
     def __init__(self, client, service):
@@ -32,6 +36,7 @@ class ServiceProxy(object):
             return # TODO  - better handling of non responses
         rep_decoded = msgpack.unpackb(raw_rep[1])
 
+        # parse formatted response
         formatted_reply = None
         if rep_decoded[0] == 'OK':
             formatted_reply = rep_decoded[1]
@@ -50,15 +55,13 @@ class ServiceProxy(object):
         
 
 class MRPCClient(MDPClient):
-
-    _mdpclient = None
+    """Client component for RPC implementation. Really just
+    creates ServiceProxy components for given service names.
+    """
 
     def __init__(self, context, endpoint):
         self._rpc_context = context
         self._rpc_endpoint = endpoint
-
-    def _mdpclient(self, service):
-        return MDPClient(self._rpc_context, self._rpc_endpoint, service)
 
     def __getattr__(self, method, *args, **kwargs):
         if method.startswith('_'):
